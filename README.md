@@ -15,7 +15,7 @@ export LANG=C
 simple-gtkmm-app
 ```
 
-The error shown in the console (if any occur) will have the form of:
+The error shown in the console when trying to save the text file (if any occur) will have the form of:
 
 ```
 (simple-gtkmm-app:7): glibmm-CRITICAL **: 20:23:45.725: 
