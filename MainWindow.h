@@ -1,12 +1,16 @@
-#include <gtkmm.h>
+#include <gtkmm/box.h>
+#include <gtkmm/button.h>
+#include <gtkmm/window.h>
 
-class MainWindow : public Gtk::Window 
-{
-    
-protected:
-    Glib::RefPtr<Gtk::Builder> builder;
+class MainWindow : public Gtk::Window {
 
 public:
-    MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
+    MainWindow();
 
+private:
+    Gtk::Box m_box;
+    Gtk::Button m_saveFileButton;
+
+    void onButtonClicked();
+    std::string generateData();
 };

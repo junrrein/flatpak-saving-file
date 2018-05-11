@@ -21,10 +21,13 @@ link_directories(${GTK3_LIBRARY_DIRS} ${GTKMM_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
 # Add an executable compiled from hello.c
-add_executable(simple-gtkmm-app main.cpp MainWindow.cpp)
+add_executable(simple-gtkmm-app
+	main.cpp
+	MainWindow.cpp
+	filechoosernative.cpp
+	savefiledialog.cpp)
 
 # Link the target to the GTK+ libraries
 target_link_libraries(simple-gtkmm-app ${GTK3_LIBRARIES} ${GTKMM_LIBRARIES})
 
 install(TARGETS simple-gtkmm-app DESTINATION bin)
-install(FILES main.glade DESTINATION bin)
