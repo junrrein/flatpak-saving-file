@@ -14,6 +14,14 @@ flatpak run --command=bash com.sharedpointer.simple-gtkmm-app
 simple-gtkmm-app
 ```
 
+## Cleaning up
+
+```bash
+flatpak --user uninstall com.sharedpointer.simple-gtkmm-app
+flatpak --user remote-delete flatpak-bug-repo
+rm -rf flatpak-bug-repo/ flatpak-saving-file/
+```
+
 ## Acknowledgments
 
 Sample project using Gtkmm and Flatpak taken from https://github.com/futuretim/simple-gtkmm-flatpak-app/.
