@@ -1,6 +1,6 @@
 # A test program for saving files using GtkFileChooserNative and Gtkmm
 
-## How to use
+## Build and run
 
 ```bash
 git clone https://github.com/junrrein/flatpak-saving-file.git
