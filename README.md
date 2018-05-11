@@ -1,5 +1,7 @@
 # A test program for saving files using GtkFileChooserNative and Gtkmm
 
+![Screenshot](screenshot.png)
+
 ## Build and run
 
 ```bash
