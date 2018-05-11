@@ -2,7 +2,7 @@
     "app-id": "com.sharedpointer.simple-gtkmm-app",
     "version": "master",
     "runtime": "org.gnome.Platform",
-	"runtime-version": "3.28",
+    "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command": "simple-gtkmm-app",
     "finish-args": [
@@ -123,7 +123,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "/home/julian/Programacion/flatpak/simple-gtkmm-flatpak-app",
+                    "url": "https://github.com/junrrein/flatpak-saving-file.git",
                     "branch": "master"
                 }
             ],
