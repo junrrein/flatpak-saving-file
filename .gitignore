@@ -1,3 +1,4 @@
 cmake_build
 .flatpak-builder
 simple-gtkmm
+CMakeLists.txt.user
