@@ -2,7 +2,7 @@
     "app-id": "com.sharedpointer.simple-gtkmm-app",
     "version": "master",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.22",
+	"runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command": "simple-gtkmm-app",
     "finish-args": [
