@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "savefiledialog.hpp"
 #include <giomm/file.h>
+#include <iostream>
 
 MainWindow::MainWindow()
     : m_box{ Gtk::ORIENTATION_VERTICAL }
@@ -25,11 +26,21 @@ void MainWindow::onButtonClicked()
         std::string etag = "";
         Glib::RefPtr<Gio::File> file = dialog.get_file();
 
-        file->replace_contents(generateData(),
-            etag,
-            etag,
-            false,
-            Gio::FILE_CREATE_REPLACE_DESTINATION);
+        static const int numAttempts = 100;
+        int failCount = 0;
+
+        for (int i = 0; i < numAttempts; ++i)
+            try {
+                file->replace_contents(generateData(),
+                    etag,
+                    etag,
+                    false,
+                    Gio::FILE_CREATE_REPLACE_DESTINATION);
+            } catch (...) {
+                ++failCount;
+            }
+
+        std::cout << "Number of saving failures/attempts: " << failCount << "/" << numAttempts << std::endl;
     }
 }
 
