@@ -36,7 +36,8 @@ void MainWindow::onButtonClicked()
                     etag,
                     false,
                     Gio::FILE_CREATE_REPLACE_DESTINATION);
-            } catch (...) {
+            } catch (Glib::Error& e) {
+                std::cout << e.what() << std::endl;
                 ++failCount;
             }
 
