@@ -48,11 +48,15 @@ void MainWindow::onButtonClicked()
         int tempFileDescriptor = Glib::file_open_tmp(tempFilePath);
         auto tempFile = Gio::File::create_for_path(tempFilePath);
 
-        tempFile->replace_contents(generateData(),
-            etag,
-            etag,
-            false,
-            Gio::FILE_CREATE_REPLACE_DESTINATION);
+        try {
+            tempFile->replace_contents(generateData(),
+                etag,
+                etag,
+                false,
+                Gio::FILE_CREATE_REPLACE_DESTINATION);
+        } catch (Glib::Error& e) {
+            std::cerr << e.what() << std::endl;
+        }
 
         try {
             std::cout << "Saving using g_file_copy" << std::endl;
@@ -75,9 +79,9 @@ void MainWindow::onButtonClicked()
     }
 }
 
-std::string MainWindow::generateData()
+Glib::ustring MainWindow::generateData()
 {
-    std::string result;
+    Glib::ustring result;
     for (int i = 0; i < 40000; ++i)
         result += "This is a test, you can safely delete me.\n";
 
