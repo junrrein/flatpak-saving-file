@@ -12,5 +12,5 @@ private:
     Gtk::Button m_saveFileButton;
 
     void onButtonClicked();
-    Glib::ustring generateData();
+    std::string generateData();
 };

@@ -26,6 +26,7 @@ void MainWindow::onButtonClicked()
 
     if (result == GTK_RESPONSE_ACCEPT) {
         std::string etag = "";
+        const std::string data = generateData();
         Glib::RefPtr<Gio::File> file = dialog.get_file();
 
         std::cout << "Target filepath: " << file->get_path() << std::endl;
@@ -33,7 +34,7 @@ void MainWindow::onButtonClicked()
         try {
             std::cout << "Saving using g_file_replace_contents" << std::endl;
 
-            file->replace_contents(generateData(),
+            file->replace_contents(data,
                 etag,
                 etag,
                 false,
@@ -49,7 +50,7 @@ void MainWindow::onButtonClicked()
         auto tempFile = Gio::File::create_for_path(tempFilePath);
 
         try {
-            tempFile->replace_contents(generateData(),
+            tempFile->replace_contents(data,
                 etag,
                 etag,
                 false,
@@ -79,9 +80,9 @@ void MainWindow::onButtonClicked()
     }
 }
 
-Glib::ustring MainWindow::generateData()
+std::string MainWindow::generateData()
 {
-    Glib::ustring result;
+    std::string result;
     for (int i = 0; i < 40000; ++i)
         result += "This is a test, you can safely delete me.\n";
 
