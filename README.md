@@ -13,18 +13,32 @@ flatpak-builder --repo=flatpak-bug-repo flatpak-bug flatpak-saving-file/com.shar
 flatpak --user remote-add --no-gpg-verify --if-not-exists flatpak-bug-repo flatpak-bug-repo
 flatpak --user install flatpak-bug-repo com.sharedpointer.simple-gtkmm-app
 flatpak run --command=bash com.sharedpointer.simple-gtkmm-app
-export LANG=C
+export LANG=en_US
 simple-gtkmm-app
 ```
 
-The error shown in the console when trying to save the text file (if any occur) will have the form of:
+When the file is saved succesfully, the following console output is shown:
 
 ```
-(simple-gtkmm-app:7): glibmm-CRITICAL **: 20:23:45.725: 
-unhandled exception (type Glib::Error) in signal handler:
-domain: g-io-error-quark
-code  : 1
-what  : Error opening file ?/run/user/1000/doc/8e667a75/text file.txt?: No such file or directory
+Target filepath: /run/user/1000/doc/8e667a75/text file.txt
+Saving using g_file_replace_contents
+Success
+Saving using g_file_copy
+Success
+Saving using g_file_move
+Success
+```
+
+When saving the file fails, the following is shown:
+
+```
+Target filepath: /run/user/1000/doc/8e667a75/text file.txt
+Saving using g_file_replace_contents
+Error opening file “/run/user/1000/doc/8e667a75/text file.txt”: No such file or directory
+Saving using g_file_copy
+Error opening file “/run/user/1000/doc/8e667a75/text file.txt”: No such file or directory
+Saving using g_file_move
+Error opening file “/run/user/1000/doc/8e667a75/text file.txt”: No such file or directory
 ```
 
 ## Cleaning up
