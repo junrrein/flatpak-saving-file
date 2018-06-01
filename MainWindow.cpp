@@ -1,7 +1,9 @@
 #include "MainWindow.h"
 #include "savefiledialog.hpp"
-#include <giomm/file.h>
+#include <giomm.h>
+#include <glibmm.h>
 #include <iostream>
+#include <vector>
 
 MainWindow::MainWindow()
     : m_box{ Gtk::ORIENTATION_VERTICAL }
@@ -26,14 +28,44 @@ void MainWindow::onButtonClicked()
         std::string etag = "";
         Glib::RefPtr<Gio::File> file = dialog.get_file();
 
-        std::cout << "Filepath: " << file->get_path() << std::endl;
+        std::cout << "Target filepath: " << file->get_path() << std::endl;
 
         try {
+            std::cout << "Saving using g_file_replace_contents" << std::endl;
+
             file->replace_contents(generateData(),
                 etag,
                 etag,
                 false,
                 Gio::FILE_CREATE_REPLACE_DESTINATION);
+
+            std::cout << "Success" << std::endl;
+        } catch (Glib::Error& e) {
+            std::cerr << e.what() << std::endl;
+        }
+
+        const std::string tempDirPath = Glib::get_tmp_dir();
+        const std::string tempFilePath = tempDirPath + "/temp1";
+        auto tempFile = Gio::File::create_for_path(tempFilePath);
+
+        tempFile->replace_contents(generateData(),
+            etag,
+            etag,
+            false,
+            Gio::FILE_CREATE_REPLACE_DESTINATION);
+
+        try {
+            std::cout << "Saving using g_file_copy" << std::endl;
+            tempFile->copy(file, Gio::FILE_COPY_OVERWRITE);
+            std::cout << "Success" << std::endl;
+        } catch (Glib::Error& e) {
+            std::cerr << e.what() << std::endl;
+        }
+
+        try {
+            std::cout << "Saving using g_file_move" << std::endl;
+            tempFile->move(file, Gio::FILE_COPY_OVERWRITE);
+            std::cout << "Success" << std::endl;
         } catch (Glib::Error& e) {
             std::cerr << e.what() << std::endl;
         }
