@@ -26,22 +26,17 @@ void MainWindow::onButtonClicked()
         std::string etag = "";
         Glib::RefPtr<Gio::File> file = dialog.get_file();
 
-        static const int numAttempts = 100;
-        int failCount = 0;
+        std::cout << "Filepath: " << file->get_path() << std::endl;
 
-        for (int i = 0; i < numAttempts; ++i)
-            try {
-                file->replace_contents(generateData(),
-                    etag,
-                    etag,
-                    false,
-                    Gio::FILE_CREATE_REPLACE_DESTINATION);
-            } catch (Glib::Error& e) {
-                std::cout << e.what() << std::endl;
-                ++failCount;
-            }
-
-        std::cout << "Number of saving failures/attempts: " << failCount << "/" << numAttempts << std::endl;
+        try {
+            file->replace_contents(generateData(),
+                etag,
+                etag,
+                false,
+                Gio::FILE_CREATE_REPLACE_DESTINATION);
+        } catch (Glib::Error& e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 }
 
