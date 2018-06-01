@@ -44,8 +44,8 @@ void MainWindow::onButtonClicked()
             std::cerr << e.what() << std::endl;
         }
 
-        const std::string tempDirPath = Glib::get_tmp_dir();
-        const std::string tempFilePath = tempDirPath + "/temp1";
+        std::string tempFilePath;
+        int tempFileDescriptor = Glib::file_open_tmp(tempFilePath);
         auto tempFile = Gio::File::create_for_path(tempFilePath);
 
         tempFile->replace_contents(generateData(),
@@ -69,6 +69,9 @@ void MainWindow::onButtonClicked()
         } catch (Glib::Error& e) {
             std::cerr << e.what() << std::endl;
         }
+
+        std::cout << "" << std::endl;
+        ::close(tempFileDescriptor);
     }
 }
 
